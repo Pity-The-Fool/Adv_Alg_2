@@ -7,7 +7,7 @@ from common import constant
 
 class DigitalSignature:
     def __init__(self, args):
-        self.args = args
+        self.message = args.message
         self.n = constant.N
         self.prime = constant.PRIME
         self.generator = constant.GENERATOR
@@ -22,8 +22,12 @@ class DigitalSignature:
         return
 
     def sign(self):
-        self.signature = pow(self.generater, (self.args.message - self.secret) % (self.prime - 1), self.prime)
+        self.signature = pow(self.generator, (self.message - self.secret) % (self.prime - 1), self.prime)
         return
 
     def verify(self):
-        return (self.generateKeys * self.secret) % self.prime == self.signature
+        return (self.signature * self.public) % self.prime == pow(self.generator, self.message, self.prime)
+
+    def printHashed(self):
+        print("Hashed Message: " + self.message.hexdigest() + "\n\n")
+        return

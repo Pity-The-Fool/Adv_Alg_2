@@ -2,6 +2,7 @@ import argparse
 
 def get_parser():
     parser = argparse.ArgumentParser()
+
     parser.add_argument("-m", "--message",
                         help="Type a message to sign and verify",
                         dest="message",

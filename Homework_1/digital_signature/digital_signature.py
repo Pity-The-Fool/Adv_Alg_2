@@ -25,6 +25,7 @@ class DigitalSignature:
     def generateKeys(self):
         self.secret = random.getrandbits(self.n)
         self.public = pow(self.generator, self.secret, self.prime)
+        return
 
     def sign(self):
         message_value = self.get_message_value()

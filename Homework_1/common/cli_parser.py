@@ -9,8 +9,9 @@ def get_parser():
                         type=str,
                         default="Cryptographic Message"
                         )
+    return parser
 
-    def parse_args(args=None):
-        if args is None:
-            return get_parser().parse_args()
-        return get_parser().parse_args(args)
+def parse_args(args=None):
+    if args is None:
+        return get_parser().parse_args()
+    return get_parser().parse_args(args)

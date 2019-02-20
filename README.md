@@ -10,8 +10,8 @@ Description: This repo contains solutions to homework for Advanced Algorithms 2.
 Instructions:
 
 
-..1. Homework #1: run python3 on homework_1.py; use "-m" argument followed by a secret message like below:
+  Homework #1: run python3 on homework_1.py; use "-m" argument followed by a secret message like below:
 
-                 __ python3 homework_1.py -m "This is a secret message."__
+                 python3 homework_1.py -m "This is a secret message."
 
-..2. Homework #2:
+  Homework #2:

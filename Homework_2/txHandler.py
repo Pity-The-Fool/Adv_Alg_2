@@ -4,8 +4,8 @@ from UTXO import UTXOPool
 from transaction import transaction
 from digital_signature import digital_signature
 
-NUM_OUPUTS = 2
-NUM_INPUTS = 2
+NUM_OUPUTS =
+NUM_INPUTS =
 
 def isValidTx(Transaction tx, args=None):
     result = false
@@ -17,7 +17,7 @@ def isValidTx(Transaction tx, args=None):
     # Returns true if
     # (1) all outputs claimed by tx are in the current UTXO pool,
     for i in range(2):
-        if txOutput.getOutput(NUM_OUTPUTS) == UTXOPool.getTxOutput(NUM_OUTPUTS):
+        if tx.getOutput(NUM_OUTPUTS) == UTXOPool.getTxOutput(NUM_OUTPUTS):
             result = true
         else:
             return false
@@ -25,7 +25,7 @@ def isValidTx(Transaction tx, args=None):
     # (2) the signatures on each input of tx are valid,
     ds = digital_signature.DigitalSignature(args);
     for i in range(NUM_INPUTS):
-        ds.sign(txInput.getRawDataToSign(i))
+        ds.sign(tx.getRawDataToSign(i))
         if ds.verify():
             result = true
         else:
@@ -36,7 +36,7 @@ def isValidTx(Transaction tx, args=None):
 
     # (4) all of tx’s output values are non-negative, and
      for i in range(NUM_OUTPUTS):
-        if txOutput.getOutput(i) >= 0:
+        if tx.getOutput(i) >= 0:
             result = true
         else:
             return false

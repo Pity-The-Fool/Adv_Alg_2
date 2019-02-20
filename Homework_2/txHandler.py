@@ -4,8 +4,6 @@ from UTXO import UTXOPool
 from transaction import transaction
 from digital_signature import digital_signature
 
-NUM_OUPUTS =
-NUM_INPUTS =
 
 def isValidTx(Transaction tx, args=None):
     result = false

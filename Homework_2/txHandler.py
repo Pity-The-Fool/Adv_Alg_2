@@ -15,11 +15,6 @@ def isValidTx(Transaction tx, args=None):
 
     # Returns true if
     # (1) all outputs claimed by tx are in the current UTXO pool,
-    for i in range(2):
-        #if tx.getOutput(NUM_OUTPUTS) == UTXOPool.getTxOutput(NUM_OUTPUTS): # ??
-            result = true
-        else:
-            return false
 
     # (2) the signatures on each input of tx are valid,
     i = 0

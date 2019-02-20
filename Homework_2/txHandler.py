@@ -44,14 +44,24 @@ def isValidTx(Transaction tx, args=None):
 
 
 def handleTxs(possibleTxs): # Transaction[] --> Transaction[]
+    UTXOPool = UTXOPool.UTXOPool()
+    is_valid = false
+
 
 # Handles each epoch by receiving a set of proposed
 # transactions, checking each transaction for correctness using isValidTx(),
 # returning a mutually valid array of accepted transactions.
 # handleTxs() should return a mutually valid transaction set of maximal size ---
 # one that can’t be enlarged simply by adding more transactions.
+    for tx in possibleTxs:
+        is_valid = isValidTx(tx)
+        if is_valid:
+            # place tx in array of acceptable transactions
 
 
 # Based on the transactions it has chosen to accept, handleTxs should also update its internal view of UTXOPool to reflect the current set of unspent transaction outputs, so that future calls to handleTxs() and isValidTx() are able to correctly process/validate transactions that claimn outputs from transactions that were accepted in a previous call to handleTxs().
+
+
+    return tx_array
 
 # Extra Credit: Improve the handleTxs() method so that it finds a set of transactions with maximum total transaction fees -- i.e. maximize the sum over all transactions in the set of (sum of input values - sum of output values)).

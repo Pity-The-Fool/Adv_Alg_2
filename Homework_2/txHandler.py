@@ -9,8 +9,10 @@ NUM_INPUTS = 2
 
 def isValidTx(Transaction tx, args=None):
     result = false
-    txInput = transaction.Transaction.Input()
-    txOutput = transaction.Transaction.Output()
+    tx = transaction.Transaction()
+    txInput = tx.Input()
+    txOutput = tx.Output()
+    UTXOPool = UTXOPool.UTXOPool()
 
     # Returns true if
     # (1) all outputs claimed by tx are in the current UTXO pool,

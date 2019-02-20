@@ -11,6 +11,6 @@ Instructions:
 
   Homework #1: run python3 on homework_1.py; use "-m" argument followed by a secret message like below:
         
-                  python3 homework_1.py -m "This is a secret message."
+                  **python3 homework_1.py -m "This is a secret message."**
 
   Homework #2: 

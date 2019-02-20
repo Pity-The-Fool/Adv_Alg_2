@@ -16,7 +16,4 @@ Instructions:
 
   Homework #2:
   
-  '''python
-  python test
-  '''
-                 
+                 python3 homework_2.py

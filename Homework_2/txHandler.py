@@ -11,27 +11,18 @@ class TxHandler():
         self.utxoPool = utxoPool
 
     def isValidTx(Transaction tx):
-        result = false
-
-        # Returns true if:
+        outputSize = tx.getOutputSize()
+        inputSize = tx.getInputSize()
 
         # (1) all outputs claimed by tx are in the current UTXO pool,
-        outputSize = tx.getOutputSize()
         for i in range(0, outputSize):
-            if !utxoPool.contains(tx.getOutput(i).value):
+            coinOut = tx.getOutput(i).value
+            if !utxoPool.contains(CoinOut):
                 return false
 
 
-        # (2) the signatures on each input of tx are valid,
-        i = 0
-        while data = tx.getRawDataToSign(i) != None:
-            ds = digital_signature.DigitalSignature(data)
-            ds.sign(data)
-            if ds.verify():
-                result = true
-            else:
-                return false
-            ++i
+        # TODO: (2) the signatures on each input of tx are valid,
+
 
 
         # TODO: (3) no UTXO is claimed multiple times by tx,
@@ -42,11 +33,14 @@ class TxHandler():
             if tx.getOutput(i).value < 0
                 return false
 
-        # TODO: (5) the sum of tx’s input values is greater than or
+        # (5) the sum of tx’s input values is greater than or
         # equal to the sum of its output values; and false otherwise.
+        for i in range(0, inputSize):
+            coinIn = # TODO: get coin in from previous transaction output
+            if coinIn < coinOut:
+                return false
 
-
-        return result
+        return true
 
 
     def handleTxs(possibleTxs): # Transaction[] --> Transaction[]

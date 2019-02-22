@@ -17,7 +17,7 @@ class TxHandler():
         # (1) all outputs claimed by tx are in the current UTXO pool,
         for i in range(0, outputSize):
             coinOut = tx.getOutput(i).value
-            if !utxoPool.contains(CoinOut):
+            if not utxoPool.contains(CoinOut):
                 return false
 
 

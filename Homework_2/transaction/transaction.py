@@ -28,7 +28,7 @@ class Transaction():
             self.hash = tx.hash
 
 
-
+    # Input Methods:
     def addInput(self, prevTxHash, outputIndex):
         inp = self.Input(prevTxHash, outputIndex)
         self.inputs.append(inp)
@@ -40,18 +40,34 @@ class Transaction():
     def removeInput(self, index):
         self.inputs.remove(index)
 
-    def removeInput(ut):
-        for u in inputs:
+    def removeInput(self, ut):
+        for u in self.inputs:
             if (u.equals(ut)):
-                inputs.remove(u)
+                self.inputs.remove(u)
 
-    def getHash(self):
-        return self.hash
+    def getInput(self, index):
+        if (index < len(self.inputs)):
+            return self.inputs[index]
+        return None
 
+    def getInputSize():
+        return len(self.inputs)
 
     def addSignature(self, signature, index):
         self.inputs[index].addSignature(signature)
 
+
+    # Output Methods:
+    def getOutput(self, index):
+        if (index < len(self.outputs)):
+            return self.outputs[index]
+        return None
+
+    def getOutputSize():
+        return len(self.outputs)
+
+
+    # Get Tx Data Methods:
     def getRawDataToSign(self,index):
         # produces data repr for  ith=index input and all outputs
         sigData = ""
@@ -65,11 +81,6 @@ class Transaction():
             sigData += str(op.value)
             sigData += str(op.address)
         return sigData
-
-
-    def addSignature(self, signature, index):
-        self.inputs[index].addSignature(signature)
-
 
     def getRawTx(self):
         rawTx = ""
@@ -85,20 +96,12 @@ class Transaction():
         return rawTx
 
 
+    # Hash Methods
     def finalize(self):
         import hashlib
         md = hashlib.sha256()
         md.update(self.getRawTx().encode('utf-8'))
         self.hash = md.hexdigest()
 
-
-    def getInput(self, index):
-        if (index < len(self.inputs)):
-            return self.inputs[index]
-        return None
-
-
-    def getOutput(self, index):
-        if (index < len(self.outputs)):
-            return self.outputs[index]
-        return None
+    def getHash(self):
+        return self.hash

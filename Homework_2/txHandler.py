@@ -16,14 +16,10 @@ class TxHandler():
         # Returns true if:
 
         # (1) all outputs claimed by tx are in the current UTXO pool,
-        i = 0
-        while output = tx.getOutput(i) != None:
-            # TODO: output in UTXOPool?
-            if utxoPool.contains(output):
-                result = true
-            else:
+        outputSize = tx.getOutputSize()
+        for i in range(0, outputSize):
+            if !utxoPool.contains(tx.getOutput(i).value):
                 return false
-            ++i
 
 
         # (2) the signatures on each input of tx are valid,
@@ -42,13 +38,9 @@ class TxHandler():
 
 
         # (4) all of tx’s output values are non-negative, and
-        i = 0
-        while output = tx.getOutput(i) != None:
-            if output >= 0:
-                result = true
-            else:
+        for i in range(0, ouputSize):
+            if tx.getOutput(i).value < 0
                 return false
-            ++i
 
         # TODO: (5) the sum of tx’s input values is greater than or
         # equal to the sum of its output values; and false otherwise.

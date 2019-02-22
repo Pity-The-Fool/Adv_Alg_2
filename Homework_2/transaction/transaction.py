@@ -27,6 +27,8 @@ class Transaction():
         if tx != None:
             self.hash = tx.hash
 
+
+
     def addInput(self, prevTxHash, outputIndex):
         inp = self.Input(prevTxHash, outputIndex)
         self.inputs.append(inp)
@@ -38,77 +40,20 @@ class Transaction():
     def removeInput(self, index):
         self.inputs.remove(index)
 
-
-    def removeInput(ut):
-        for u in inputs:
-            if (u.equals(ut)):
-                inputs.remove(u)
-
-
-    def getRawDataToSign(self, index):
-        # produces data repr for  ith=index input and all outputs
-        sigData = ""
-        if (index > len(self.inputs)):
-            return None
-        inp = self.inputs[index]
-        self.prevTxHash = inp.prevTxHash
-        sigData += str(inp.outputIndex)
-        sigData += self.prevTxHash
-        for op in self.outputs:
-            sigData += str(op.value)
-            sigData += str(op.address)
-        return sigData
-
-
-    def addSignature(self, signature, index):
-        self.inputs[index].addSignature(signature)
-
-
-    def getRawTx(self):
-        rawTx = ""
-        for inp in self.inputs:
-            rawTx += str(inp.prevTxHash)
-            rawTx += str(inp.outputIndex)
-            rawTx += str(inp.signature)
-
-        for op in self.outputs:
-            rawTx += str(op.value)
-            rawTx += str(op.address)
-
-        return rawTx
-
-
-    def finalize(self):
-        import hashlib
-        md = hashlib.sha256()
-        md.update(self.getRawTx().encode('utf-8'))
-        self.hash = md.hexdigest()
-
     def getHash(self):
         return self.hash
-
-    def getInput(self, index):
-        if (index < len(self.inputs)):
-            return self.inputs[index]
-        return None
-
-
-    def getOutput(self, index):
-        if (index < len(self.outputs)):
-            return self.outputs[index]
-        return None
-
-
 
     def removeInput(index):
         inputs.remove(index)
 
-
     def removeInput(ut):
         for u in inputs:
             if (u.equals(ut)):
                 inputs.remove(u)
 
+
+    def addSignature(self, signature, index):
+        self.inputs[index].addSignature(signature)
 
     def getRawDataToSign(self,index):
         # produces data repr for  ith=index input and all outputs
@@ -149,9 +94,10 @@ class Transaction():
         md.update(self.getRawTx().encode('utf-8'))
         self.hash = md.hexdigest()
 
+
     def getInput(self, index):
         if (index < len(self.inputs)):
-            return self.inputs.get(index)
+            return self.inputs[index]
         return None
 
 

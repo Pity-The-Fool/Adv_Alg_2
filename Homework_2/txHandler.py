@@ -44,20 +44,16 @@ class TxHandler():
 
 
     def handleTxs(possibleTxs): # Transaction[] --> Transaction[]
-        UTXOPool = UTXOPool.UTXOPool()
         is_valid = false
 
         for tx in possibleTxs:
             if isValidTx(tx):
-                # while still room in validTxSet
-                # place tx in array of acceptable transactions
+                validTxList.append(tx) # add valid tx to list
+                utxoPool.remove(tx)    # update UTXOPool ????????
+            else:
+                # do something with invalid tx??
 
-                # Based on the transactions it has chosen to accept, handleTxs should also update
-                # its internal view of UTXOPool to reflect the current set of unspent transaction
-                # outputs, so that future calls to handleTxs() and isValidTx() are able to correctly
-                # process/validate transactions that claimn outputs from transactions that were
-                # accepted in a previous call to handleTxs().
-        return validTxSet
+        return validTxList
 
 
 

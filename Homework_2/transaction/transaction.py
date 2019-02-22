@@ -40,16 +40,13 @@ class Transaction():
     def removeInput(self, index):
         self.inputs.remove(index)
 
-    def getHash(self):
-        return self.hash
-
-    def removeInput(index):
-        inputs.remove(index)
-
     def removeInput(ut):
         for u in inputs:
             if (u.equals(ut)):
                 inputs.remove(u)
+
+    def getHash(self):
+        return self.hash
 
 
     def addSignature(self, signature, index):

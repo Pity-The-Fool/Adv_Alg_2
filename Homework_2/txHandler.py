@@ -5,16 +5,20 @@ from transaction import transaction
 from digital_signature import digital_signature
 
 
-def isValidTx(Transaction tx, args=None):
+def isValidTx(Transaction tx):
     result = false
     tx = transaction.Transaction()
     txInput = tx.Input()
     txOutput = tx.Output()
     UTXOPool = UTXOPool.UTXOPool()
-    ds = digital_signature.DigitalSignature(args);
 
-    # Returns true if
-    # (1) all outputs claimed by tx are in the current UTXO pool,
+    # TODO: pass transaction and transaction output public key? -- digital signatures class changed to receive
+    # public key
+    ds = digital_signature.DigitalSignature(TX_TO_VERIFY_STILL_NEEDED, NEED_TO_PASS_PUBLIC_KEY);
+
+    # Returns true if:
+
+    # TODO: (1) all outputs claimed by tx are in the current UTXO pool,
 
     # (2) the signatures on each input of tx are valid,
     i = 0
@@ -25,7 +29,7 @@ def isValidTx(Transaction tx, args=None):
         else:
             return false
 
-    # (3) no UTXO is claimed multiple times by tx,
+    # TODO: (3) no UTXO is claimed multiple times by tx,
 
 
     # (4) all of tx’s output values are non-negative, and
@@ -36,7 +40,7 @@ def isValidTx(Transaction tx, args=None):
         else:
             return false
 
-    # (5) the sum of tx’s input values is greater than or
+    # TODO: (5) the sum of tx’s input values is greater than or
     #     equal to the sum of its output values; and false otherwise.
 
 

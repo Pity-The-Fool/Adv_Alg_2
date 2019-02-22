@@ -49,7 +49,7 @@ class TxHandler():
         for tx in possibleTxs:
             if isValidTx(tx):
                 validTxList.append(tx) # add valid tx to list
-                utxoPool.remove(tx)    # update UTXOPool ????????
+                utxoPool.remove(tx)    # update UTXOPool ???????? don't think this is correct
             else:
                 # do something with invalid tx??
 

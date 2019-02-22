@@ -17,8 +17,8 @@ class Transaction():
 
     class Output():
         def __init__(self, v, pk):
-            self.value = v;
-            self.address = pk
+            self.value = v;    # coin value
+            self.address = pk  # public key
 
 
     def __init__(self, tx = None):

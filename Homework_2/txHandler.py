@@ -8,26 +8,27 @@ from digital_signature import digital_signature
 def isValidTx(Transaction tx):
     result = false
     tx = transaction.Transaction()
-    txInput = tx.Input()
-    txOutput = tx.Output()
-    UTXOPool = UTXOPool.UTXOPool()
-
-    # TODO: pass transaction and transaction output public key? -- digital signatures class changed to receive
-    # public key
-    ds = digital_signature.DigitalSignature(TX_TO_VERIFY_STILL_NEEDED, NEED_TO_PASS_PUBLIC_KEY);
+    utxoPool = UTXOPool.UTXOPool()
 
     # Returns true if:
 
-    # TODO: (1) all outputs claimed by tx are in the current UTXO pool,
+    # (1) all outputs claimed by tx are in the current UTXO pool,
+    i = 0
+    while output = tx.getOutput(i) != None:
+        # TODO: output in UTXOPool?
+        ++i
+
 
     # (2) the signatures on each input of tx are valid,
     i = 0
-    while data = tx.getRawDataToSign(i) != None
+    while data = tx.getRawDataToSign(i) != None:
+        ds = digital_signature.DigitalSignature(data)
         ds.sign(data)
         if ds.verify():
             result = true
         else:
             return false
+        ++i
 
     # TODO: (3) no UTXO is claimed multiple times by tx,
 
@@ -39,6 +40,7 @@ def isValidTx(Transaction tx):
             result = true
         else:
             return false
+        ++i
 
     # TODO: (5) the sum of tx’s input values is greater than or
     #     equal to the sum of its output values; and false otherwise.

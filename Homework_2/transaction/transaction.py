@@ -3,7 +3,7 @@ class Transaction():
     class Input():
         def __init__(self, prevHash, index):
             if (prevHash == None):
-                self. prevTxHash = None
+                self.prevTxHash = None
             else:
                 self.prevTxHash = prevHash
             self.outputIndex = index
@@ -17,8 +17,8 @@ class Transaction():
 
     class Output():
         def __init__(self, v, pk):
-            self.value = v;    # coin value
-            self.address = pk  # public key
+            self.value = v    # coin value
+            self.address = pk # public key
 
 
     def __init__(self, tx = None):

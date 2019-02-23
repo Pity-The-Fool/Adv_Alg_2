@@ -36,7 +36,7 @@ class TxHandler():
         # (5) the sum of tx’s input values is greater than or
         # equal to the sum of its output values; and false otherwise.
         for i in range(0, inputSize):
-            coinIn = # TODO: get coin in from previous transaction output
+            coinIn = previousTx.value # TODO: get coin in from previous transaction output?
             if coinIn < coinOut:
                 return false
 
@@ -47,10 +47,10 @@ class TxHandler():
         is_valid = false
 
         for tx in possibleTxs:
-            if isValidTx(tx):
+            if isValidTx(tx):  # how do we know if the list is full?
                 validTxList.append(tx) # add valid tx to list
-                utxoPool.remove(tx)    # update UTXOPool ???????? don't think this is correct
-            else:
+                # utxoPool.remove(tx)
+                # update UTXOPool ?            else:
                 # do something with invalid tx??
 
         return validTxList

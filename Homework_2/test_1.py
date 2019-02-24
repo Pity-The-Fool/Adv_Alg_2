@@ -4,8 +4,8 @@ import random
 from Transaction import Transaction
 from UTXOPool import UTXOPool
 from UTXO import UTXO
+from txHandler import TxHandler
 from keys import genkeys, sign, verify, n, g, p
-
 
 class TestMethods(unittest.TestCase):
 

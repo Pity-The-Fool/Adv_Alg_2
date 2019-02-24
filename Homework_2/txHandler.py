@@ -1,8 +1,11 @@
-# You will be responsible for creating a module that contains an API called txHandler that validates transactions using UTXOpool and updates the pool based on processing a set of non-conflicting tranactions contained in the pool.
+# You will be responsible for creating a module that contains an API called
+# txHandler that validates transactions using UTXOpool and updates the pool
+# based on processing a set of non-conflicting tranactions contained in the
+# pool.
 
-from UTXO import UTXOPool
-from transaction import transaction
-from digital_signature import digital_signature
+import UTXOPool
+from Transaction import Transaction
+# Do we need the digital signature's fns?
 
 class TxHandler():
 
@@ -10,14 +13,14 @@ class TxHandler():
         self.public = public
         self.utxoPool = utxoPool
 
-    def isValidTx(Transaction tx):
+    def isValidTx(tx):
         outputSize = tx.getOutputSize()
         inputSize = tx.getInputSize()
 
         # (1) all outputs claimed by tx are in the current UTXO pool,
         for i in range(0, outputSize):
-            coinOut = tx.getOutput(i).value
-            if not utxoPool.contains(CoinOut):
+            coin_out = tx.getOutput(i).value
+            if not utxoPool.contains(coin_out):
                 return false
 
 
@@ -30,7 +33,7 @@ class TxHandler():
 
         # (4) all of tx’s output values are non-negative, and
         for i in range(0, ouputSize):
-            if tx.getOutput(i).value < 0
+            if tx.getOutput(i).value < 0:
                 return false
 
         # (5) the sum of tx’s input values is greater than or

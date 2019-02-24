@@ -3,7 +3,7 @@ class UTXOPool():
     H = {}
 
     def __init__(self):
-        self.H = {} #UTXO, Transaction.Output
+        self.H = {} # {UTXO: Transaction.Output}
 
     def addUTXO(self, utxo, txOut):
         self.H[utxo] = txOut

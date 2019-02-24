@@ -3,9 +3,10 @@
 # based on processing a set of non-conflicting tranactions contained in the
 # pool.
 
+import hashlib
 import UTXOPool
 from Transaction import Transaction
-# Do we need the digital signature's fns?
+from keys import verify, n, g, p
 
 class TxHandler():
 
@@ -16,6 +17,7 @@ class TxHandler():
     def isValidTx(self, tx):
         outputSize = tx.getOutputSize()
         input_size = tx.getInputSize()
+        associated_utxos = []
 
         # (1) All outputs claimed by |tx| are in the current UTXO pool,
         # I believe to "claim an output" is to have some output as your
@@ -29,17 +31,29 @@ class TxHandler():
           for utxo in self.utxoPool.getAllUTXO():
             if transaction_input.prevTxHash is utxo.getTxHash() and transaction_input.outputIndex is utxo.getIndex():
               found_input_in_utxo_pool = True
+              associated_utxos.append(utxo)
               break # I believe this is safe.
 
           if found_input_in_utxo_pool is False:
             return False
 
-        # ...
-
-        # TODO: (2) the signatures on each input of tx are valid,
+        # (2) the signatures on each input of tx are valid,
         # need to verify() (from keys.py) each signature it seems.
+        # This contains the signatures for each input
+        public_keys = [self.utxoPool.getTxOutput(utxo).address for utxo in associated_utxos]
+        signatures = [transaction_input.signature for transaction_input in tx.inputs]
+        hms = [tx.getRawDataToSign(i) for i in range(input_size)]
+        for i in range(len(hms)):
+          m = hashlib.sha256()
+          m.update(str.encode(hms[i]))
+          hms[i] = int(m.hexdigest(), 16)
 
-
+        for combo in zip(public_keys, signatures, hms):
+          # |combo| has the form (pk, sig, hm), for each transaction, letting
+          # us easily call |verify| with the necessary arguments.
+          if verify(combo[0], combo[1], combo[2], p, g) is False:
+            print("A signature in the transaction could not be verified")
+            return False
 
         # TODO: (3) no UTXO is claimed multiple times by tx,
 

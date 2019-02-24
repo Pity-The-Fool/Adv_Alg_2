@@ -2,6 +2,7 @@ import unittest
 import hashlib
 import random
 from Transaction import Transaction
+from txHandler import TxHandler
 from UTXOPool import UTXOPool
 from UTXO import UTXO
 from keys import genkeys, sign, verify, n, g, p
@@ -45,14 +46,14 @@ class TestMethods(unittest.TestCase):
               utxoPool.addUTXO(ut, tx.getOutput(j))
               utxoToKeyPair[ut] = keyPairAtIndex[j]
 
-        utxoSet = utxoPool.getAllUTXO()
-        print("Len of utxoSet", len(utxoSet))
-        maxValidInput = min(maxInput, len(utxoSet))
+        print("Len of utxoSet", len(utxoPool.getAllUTXO()))
+        maxValidInput = min(maxInput, len(utxoPool.getAllUTXO()))
 
         nTxPerTest= 11
         maxValidInput = 2
         maxOutput = 3
         passes = True
+        txHandler = TxHandler(utxoPool)
 
         for i in range(nTxPerTest):
            tx = Transaction()
@@ -60,9 +61,16 @@ class TestMethods(unittest.TestCase):
            utxoAtIndex = {}
            nInput = random.randint(1,maxValidInput+ 1)
            inputValue = 0.0
+
+           # We're using this as our sample space to pull UTXOs from for
+           # a Transaction's input. This is helpful because it ensures that
+           # we never introduce a duplicate UTXO for an input of a valid Transaction.
+           utxoSet = set(utxoPool.getAllUTXO())
+
            for j in range(nInput):
-              utxo = random.sample(utxoSet,1)[0]
+              utxo = random.sample(utxoSet, 1)[0]
               tx.addInput(utxo.getTxHash(), utxo.getIndex())
+              utxoSet.remove(utxo) # See comment in test_1.py
               inputValue += utxoPool.getTxOutput(utxo).value
               utxoAtIndex[j] = utxo
            nOutput = random.randint(1,maxOutput)

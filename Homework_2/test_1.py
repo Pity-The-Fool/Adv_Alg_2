@@ -73,9 +73,8 @@ class TestMethods(unittest.TestCase):
         # as well as a map {UTXO: (sk, pk)}, so we can book-keep the
         # identities of the UTXO "authors" for testing.
 
-        utxoSet = utxoPool.getAllUTXO()
-        print("Len of utxoSet", len(utxoSet))
-        maxValidInput = min(maxInput, len(utxoSet))
+        print("Len of utxoSet", len(utxoPool.getAllUTXO()))
+        maxValidInput = min(maxInput, len(utxoPool.getAllUTXO()))
 
         nTxPerTest= 11
         maxValidInput = 2
@@ -89,10 +88,20 @@ class TestMethods(unittest.TestCase):
            nInput = random.randint(1, maxValidInput + 1)
            inputValue = 0.0
 
+           # We're using this as our sample space to pull UTXOs from for
+           # a Transaction's input. This is helpful because it ensures that
+           # we never introduce a duplicate UTXO for an input of a valid Transaction.
+           utxoSet = set(utxoPool.getAllUTXO())
+
            # Add a bunch of inputs to |tx|.
            for j in range(nInput):
-              utxo = random.sample(utxoSet,1)[0] # Choose a random UTXO to fund the input.
+              # Choose a random UTXO to fund the input.
+              # There is a non-zero chance that this could actually
+              # pick duplicate UTXOs for a Transaction's input, thus
+              # breaking the test.
+              utxo = random.sample(utxoSet, 1)[0]
               tx.addInput(utxo.getTxHash(), utxo.getIndex())
+              utxoSet.remove(utxo) # Ensure we do not pick this UTXO as another input.
               inputValue += utxoPool.getTxOutput(utxo).value
               utxoAtIndex[j] = utxo
 

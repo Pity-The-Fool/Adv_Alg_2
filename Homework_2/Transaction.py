@@ -50,7 +50,7 @@ class Transaction():
             return self.inputs[index]
         return None
 
-    def getInputSize():
+    def getInputSize(self):
         return len(self.inputs)
 
     def addSignature(self, signature, index):
@@ -63,7 +63,7 @@ class Transaction():
             return self.outputs[index]
         return None
 
-    def getOutputSize():
+    def getOutputSize(self):
         return len(self.outputs)
 
 

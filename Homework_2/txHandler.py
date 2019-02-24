@@ -27,9 +27,9 @@ class TxHandler():
 
           # Now we have to see if we can find |transaction_input| in the UTXOPool.
           for utxo in self.utxoPool.getAllUTXO():
-            # TODO(domfarolino): Also do an index check!
             if transaction_input.prevTxHash is utxo.getTxHash() and transaction_input.outputIndex is utxo.getIndex():
               found_input_in_utxo_pool = True
+              break # I believe this is safe.
 
           if found_input_in_utxo_pool is False:
             return False

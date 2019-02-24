@@ -15,7 +15,7 @@ class TxHandler():
         self.utxoPool = utxoPool
 
     def isValidTx(self, tx):
-        outputSize = tx.getOutputSize()
+        output_size = tx.getOutputSize()
         input_size = tx.getInputSize()
         associated_utxos = []
 
@@ -55,24 +55,43 @@ class TxHandler():
             print("A signature in the transaction could not be verified")
             return False
 
-        # TODO: (3) no UTXO is claimed multiple times by tx,
+        # (3) no UTXO is claimed multiple times by tx,
+        # We already have a list of UTXOs associated with each of |tx|'s inputs,
+        # so what we can do is simply check to see if any of the UTXOs are duplicates.
+        if len(associated_utxos) > len(set(associated_utxos)):
+          print("There were '", len(associated_utxos) - len(set(associated_utxos)), "' duplicate UTXOs for this Transaction's inputs")
+          return False
 
-
-        return True
-        # (4) all of tx’s output values are non-negative, and
-        for i in range(0, ouputSize):
+        # (4) all of |tx|'s output values are non-negative, and
+        for i in range(output_size):
             if tx.getOutput(i).value < 0:
-                return false
+                print("The transaction's output was below zero:", tx.getOutput(i).value)
+                return False
 
         # (5) the sum of tx’s input values is greater than or
         # equal to the sum of its output values; and false otherwise.
-        for i in range(0, inputSize):
-            input_value = previousTx.value # TODO: get coin in from previous transaction output?
-            if coinIn < coinOut:
-                return false
+        # This obviously can only be completed if this check happens after check (4),
+        # because negative output values can screw this up.
+        input_sum = 0
+        output_sum = 0
+
+        # Collect input sums.
+        for utxo in associated_utxos:
+          input_sum += self.utxoPool.getTxOutput(utxo).value
+
+        # Collect output sums.
+        for i in range(output_size):
+          output_sum += tx.getOutput(i).value
+
+        if (output_sum > input_sum):
+          print("The total output sum of the |tx| exceeds its input sum")
+          return False
+
+        # Remove the UTXOs claimed by |tx| from the given UTXOPool.
+        #for utxo in associated_utxos:
+          #self.utxoPool.remove(utxo)
 
         return True
-
 
     def handleTxs(possibleTxs): # Transaction[] --> Transaction[]
         is_valid = false
@@ -86,6 +105,7 @@ class TxHandler():
 
         return validTxList
 
-
-
-    # Extra Credit: Improve the handleTxs() method so that it finds a set of transactions with maximum total transaction fees -- i.e. maximize the sum over all transactions in the set of (sum of input values - sum of output values)).
+    # Extra Credit: Improve the handleTxs() method so that it finds a
+    # set of transactions with maximum total transaction fees -- i.e.,
+    # maximize the sum over all transactions in the set of (sum of input
+    # values - sum of output values)).

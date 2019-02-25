@@ -111,7 +111,7 @@ class TxHandler():
                 for ind in range(input_size):
                     transaction_input = possibleTxs[ind].getInput(ind)
                     for utxo in self.utxoPool.getAllUTXO():
-                        if transaction_input.outputIndex is utxo.getIndex():
+                        if  transaction_input.prevTxHash is utxo.getTxHash() and transaction_input.outputIndex is utxo.getIndex():
                             associated_utxos.append(utxo)
 
                 # get sum of inputs

@@ -112,8 +112,9 @@ class TxHandler():
                             associated_utxos.append(utxo)
 
         # update internal view of UTXOPool -- remove chosen tx
-        for utxo in associated_utxos:
-            self.utxoPool.remove(utxo)
+        if not associated_utxos:
+            for utxo in associated_utxos:
+                self.utxoPool.remove(utxo)
 
         # return mutually valid array of accepted transactions
         return valid_txs

@@ -63,7 +63,7 @@ class TestMethods(unittest.TestCase):
            nInput = random.randint(1,maxValidInput+ 1)
            inputValue = 0.0
 
-          # We're using this as our sample space to pull UTXOs from for
+           # We're using this as our sample space to pull UTXOs from for
            # a Transaction's input. This is helpful because it ensures that
            # we never introduce a duplicate UTXO for an input of a valid Transaction.
            utxoSet = set(utxoPool.getAllUTXO())
@@ -94,13 +94,20 @@ class TestMethods(unittest.TestCase):
 
                  keyPair = utxoToKeyPair[utxoAtIndex[j]]
                  if (random.random() < pCorrupt):
-                   keyPair = people[random.randint(0,nPeople)]
-                   uncorrupted = False
+                   # Attempt to corrupt the signature.
+                   potential_key_pair = people[random.randint(0, nPeople - 1)]
+                   if potential_key_pair[0] is not keyPair[0]:
+                     # Only consider _different_ randomly chosen keys
+                     # as "corrupted".
+                     keyPair = potential_key_pair
+                     uncorrupted = False
 
                  tx.addSignature(sign(keyPair[0], hm,p,g), j)
 
            tx.finalize()
            if (txHandler.isValidTx(tx) != uncorrupted):
+             print("Corrupted keys:", not uncorrupted)
+             print("isValidTx got:", txHandler.isValidTx(tx))
              passes = False
         self.assertTrue(passes)
 

@@ -14,6 +14,6 @@ Instructions:
 
                  python3 homework_1.py -m "This is a secret message."
 
-  Homework #2:
-  
-                 python3 homework_2.py
+  Homework #2: run python3 on all 6 of the tests provided.  The first 3 were provided by the instructor, we created the other 3.
+
+                 python3 test_*.py

@@ -142,12 +142,12 @@ class TestMethods(unittest.TestCase):
         self.assertTrue(passes)
 
         valid_txs = txHandler.handleTxs(possibleTxs)
+        is_valid = False
 
         for tx in valid_txs:
            if txHandler.isValidTx(tx):
-               is_valid = true
+               is_valid = True
            else:
-               is_valid = false
                break
 
         print("handleTxs: ")

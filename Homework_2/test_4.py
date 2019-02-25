@@ -62,6 +62,7 @@ class TestMethods(unittest.TestCase):
               tx.addOutput(value, addr)
               keyPairAtIndex[j] = people[rIndex]
            tx.finalize()
+          # possibleTxs.append(tx)
 
            # Add all of the Transaction's outputs to UTXOPool.
            for j in range(num):

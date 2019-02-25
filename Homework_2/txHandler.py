@@ -95,26 +95,28 @@ class TxHandler():
 
 
 
-    def handleTxs(possibleTxs): # Transaction[] --> Transaction[]
-        input_size = possibleTxs.getInputSize()
-        output_size = possibleTxs.getOutputSize()
-        is_valid = false
+    def handleTxs(self, possibleTxs): # Transaction[] --> Transaction[]
         valid_txs = []
-
-        # get all utxos associated with possibleTxs
-        for ind in range(input_size):
-          transaction_input = possibleTxs.getInput(ind)
-          for utxo in self.utxoPool.getAllUTXO():
-            if transaction_input.prevTxHash is utxo.getTxHash() and transaction_input.outputIndex is utxo.getIndex():
-              associated_utxos.append(utxo)
-
-        # get sum of inputs
-        for utxo in associated_utxos:
-            input_sum += self.utxoPool.getTxOutput(utxo).value
+        associated_utxos = []
+        input_sum = 0
+        valid_tx_sum = 0
 
         # check each transaction for correctness
-        for ind in range(0, output_size):
-            if isValidTx(possibleTxs[ind]):
+        for ind in range(0, len(possibleTxs)):
+            if self.isValidTx(possibleTxs[ind]):
+
+                input_size = possibleTxs[ind].getInputSize()
+
+                # get all utxos associated with possibleTxs
+                for ind in range(input_size):
+                    transaction_input = possibleTxs[ind].getInput(ind)
+                    for utxo in self.utxoPool.getAllUTXO():
+                        if transaction_input.outputIndex is utxo.getIndex():
+                            associated_utxos.append(utxo)
+
+                # get sum of inputs
+                for utxo in associated_utxos:
+                    input_sum += self.utxoPool.getTxOutput(utxo).value
 
                 # insert valid transaction into our return list
                 # while input sum is greater than current valid_tx sum

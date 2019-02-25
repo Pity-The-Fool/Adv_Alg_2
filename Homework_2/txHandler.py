@@ -94,14 +94,26 @@ class TxHandler():
 
 
 
-    def handleTxs(self, possibleTxs):
+    def handleTxs(self, possibleTxs): # Transaction[] --> Transaction[]
         valid_txs = []
+        associated_utxos = []
+
         # check each transaction for correctness
-        for ind in range(0, len(possibleTxs)):
-            if self.isValidTx(possibleTxs[ind]):
-                valid_txs.append(possibleTxs[ind])
-                # update internal view of UTXOPool -- remove chosen tx
-                #self.utxoPool.remove(possibleTxs[ind].getOutput(ind))
+        for tx in possibleTxs:
+            if self.isValidTx(tx):
+                valid_txs.append(tx)
+
+                # get all utxos associated with possibleTxs
+                input_size = tx.getInputSize()
+                for ind in range(input_size):
+                    transaction_input = tx.getInput(ind)
+                    for utxo in self.utxoPool.getAllUTXO():
+                        if  transaction_input.prevTxHash is utxo.getTxHash() and transaction_input.outputIndex is utxo.getIndex():
+                            associated_utxos.append(utxo)
+
+        # update internal view of UTXOPool -- remove chosen tx
+        for utxo in associated_utxos:
+            self.utxoPool.remove(utxo)
 
         # return mutually valid array of accepted transactions
         return valid_txs

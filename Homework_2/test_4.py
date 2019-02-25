@@ -25,7 +25,7 @@ class TestMethods(unittest.TestCase):
         self.assertTrue(verify(pkx,sig,hm,p,g))
         self.assertFalse(verify(pkx,sig,hm+1,p,g))
 
-    def test_1(self):
+    def test_4(self):
         possibleTxs = []
         print("Test 1: test isValidTx() with valid transactions")
         nPeople = 10

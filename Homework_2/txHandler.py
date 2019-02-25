@@ -67,7 +67,7 @@ class TxHandler():
                 print("The transaction's output was below zero:", tx.getOutput(i).value)
                 return False
 
-        # (5) the sum of tx’s input values is greater than or
+        # (5) the sum of tx's input values is greater than or
         # equal to the sum of its output values; and false otherwise.
         # This obviously can only be completed if this check happens after check (4),
         # because negative output values can screw this up.
@@ -96,7 +96,8 @@ class TxHandler():
 
 
     def handleTxs(possibleTxs): # Transaction[] --> Transaction[]
-        input_size = tx.getInputSize()
+        input_size = possibleTxs.getInputSize()
+        output_size = possibleTxs.getOutputSize()
         is_valid = false
         valid_txs = []
 
@@ -112,13 +113,13 @@ class TxHandler():
             input_sum += self.utxoPool.getTxOutput(utxo).value
 
         # check each transaction for correctness
-        for ind in range (0,  len(possibleTxs)):
+        for ind in range(0, output_size)
             if isValidTx(possibleTxs[ind]):
 
                 # insert valid transaction into our return list
                 # while input sum is greater than current valid_tx sum
                 if input_sum > valid_tx_sum:
-                    valid_tx_sum += possibleTxs[ind].value
+                    valid_tx_sum += possibleTxs.getOutput(ind).value
                     valid_txs.append(possibleTxs[ind])
 
                     # update internal view of UTXOPool -- remove chosen tx

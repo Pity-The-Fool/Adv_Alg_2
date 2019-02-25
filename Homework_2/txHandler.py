@@ -11,7 +11,6 @@ from keys import verify, n, g, p
 class TxHandler():
 
     def __init__(self, utxoPool):
-        #self.public = public
         self.utxoPool = utxoPool
 
     def isValidTx(self, tx):
@@ -88,24 +87,45 @@ class TxHandler():
           return False
 
         # Remove the UTXOs claimed by |tx| from the given UTXOPool.
-        #for utxo in associated_utxos:
-          #self.utxoPool.remove(utxo)
+        # for utxo in associated_utxos:
+        # self.utxoPool.remove(utxo)
 
         return True
 
+
+
+
     def handleTxs(possibleTxs): # Transaction[] --> Transaction[]
+        input_size = tx.getInputSize()
         is_valid = false
+        valid_txs = []
 
-        for tx in possibleTxs:
-            if isValidTx(tx):  # how do we know if the list is full?
-                validTxList.append(tx) # add valid tx to list
-                # utxoPool.remove(tx)
-                # update UTXOPool ?            else:
-                # do something with invalid tx??
+        # get all utxos associated with possibleTxs
+        for ind in range(input_size):
+          transaction_input = possibleTxs.getInput(ind)
+          for utxo in self.utxoPool.getAllUTXO():
+            if transaction_input.prevTxHash is utxo.getTxHash() and transaction_input.outputIndex is utxo.getIndex():
+              associated_utxos.append(utxo)
 
-        return validTxList
+        # get sum of inputs
+        for utxo in associated_utxos:
+            input_sum += self.utxoPool.getTxOutput(utxo).value
 
-    # Extra Credit: Improve the handleTxs() method so that it finds a
-    # set of transactions with maximum total transaction fees -- i.e.,
-    # maximize the sum over all transactions in the set of (sum of input
-    # values - sum of output values)).
+        # check each transaction for correctness
+        for ind in range (0,  len(possibleTxs)):
+            if isValidTx(possibleTxs[ind]):
+
+                # insert valid transaction into our return list
+                # while input sum is greater than output sum
+                if input_sum > output_sum:
+                    output_sum += possibleTxs[ind].value
+                    valid_txs.append(possibleTxs[ind])
+
+                    # update internal view of UTXOPool -- remove chosen tx
+                    # self.utxoPool.remove(possibleTxs.getOutput(ind))
+                    self.utxoPool.remove(associated_utxos[ind])
+                else:
+                    break # no more transactions can be added to valid_txs
+
+        # return mutually valid array of accepted transactions
+        return valid_txs

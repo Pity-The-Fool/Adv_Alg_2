@@ -113,7 +113,7 @@ class TxHandler():
             input_sum += self.utxoPool.getTxOutput(utxo).value
 
         # check each transaction for correctness
-        for ind in range(0, output_size)
+        for ind in range(0, output_size):
             if isValidTx(possibleTxs[ind]):
 
                 # insert valid transaction into our return list

@@ -118,7 +118,7 @@ class TxHandler():
                 # insert valid transaction into our return list
                 # while input sum is greater than current valid_tx sum
                 if input_sum > valid_tx_sum:
-                    output_sum += possibleTxs[ind].value
+                    valid_tx_sum += possibleTxs[ind].value
                     valid_txs.append(possibleTxs[ind])
 
                     # update internal view of UTXOPool -- remove chosen tx

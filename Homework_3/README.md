@@ -1,7 +1,9 @@
 CS7082 Assignment 3: Due March 14
 ==================================================================================
+
+
 Part 1: Designing a Blockchain
-----------------------------------------------------------------------------------
+==================================================================================
 
 We determine the Blockchain by deciding how? and what? is encoded for each block of the chain. Assume that only outputs from legal transactions called Catx (pronounced 'cats') will be allowed. Each output will be determined by an approved script and appropriate set of parameters.
 

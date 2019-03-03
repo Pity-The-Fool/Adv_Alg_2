@@ -86,27 +86,27 @@ Each node will be given its list of followees via a boolean array whose indices 
 
 In testing, the nodes running your code may encounter a number (up to 45%) of malicious nodes that do not cooperate with your consensus algorithm. Nodes of your design should be able to withstand as many malicious nodes as possible and still achieve consensus. Malicious nodes may have arbitrary behavior. For instance, among other things, a malicious node might:
 
-   ● be functionally dead and never actually broadcast any Catx.
-   ● constantly broadcasts its own set of Catx and never accept Catx given to it.
-   ● change behavior between rounds to avoid detection.
+   * be functionally dead and never actually broadcast any Catx.
+   * constantly broadcasts its own set of Catx and never accept Catx given to it.
+   * change behavior between rounds to avoid detection.
 
 
 You will be provided the following files:
 
-   ● CompliantNode.py A class skeleton for your CompliantNode class. You should develop your code based off of the template this file provides.
-   ● Candidate.py a simple class to describe candidate Catx your node recieves
-   ● MaliciousNode.py a very simple example of a malicious node
-   ● Simulation.py a basic graph generator that you may use to run your own simulations with varying graph parameters (described below) and test your CompliantNode class
-   ● Catx.py the Catx class, a transaction from Part I above.
+   * CompliantNode.py A class skeleton for your CompliantNode class. You should develop your code based off of the template this file provides.
+   * Candidate.py a simple class to describe candidate Catx your node recieves
+   * MaliciousNode.py a very simple example of a malicious node
+   * Simulation.py a basic graph generator that you may use to run your own simulations with varying graph parameters (described below) and test your CompliantNode class
+   * Catx.py the Catx class, a transaction from Part I above.
 
 
 The graph of nodes will have the following parameters:
 
-   ● the pairwise connectivity probability of the random graph: e.g. {.1, .2, .3}
-   ● the probability that a node will be set to be malicious: e.g {.15, .30, .45}
-   ● the probability that each of the initial valid transactions will be communicated:
+   * the pairwise connectivity probability of the random graph: e.g. {.1, .2, .3}
+   * the probability that a node will be set to be malicious: e.g {.15, .30, .45}
+   * the probability that each of the initial valid transactions will be communicated:
        e.g. {.01, .05, .10}
-   ● the max number of rounds needed to reach consensus e.g. {10, 20}
+   * the max number of rounds needed to reach consensus e.g. {10, 20}
 
 Your focus will be on developing a robust CompliantNode class that will work in all combinations of the graph parameters. At the end of each round, your node will write a file of Catx using its id as file name. The set written will be determined by the list of transactions that were broadcast to it during previous rounds. Your node will not know the network topology and should do its best to work in the general case. That said, be aware of how different topology might impact what to include in your picture of consensus. Here is a suggested use of python multiprocessing to run the Node code.
 

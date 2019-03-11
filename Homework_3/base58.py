@@ -1,14 +1,13 @@
 #!/usr/bin/python3
 
 
-class Base58:
+class Base58():
 
     def __init__(self,
-                 alphabet ​=​ ​'123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ',
-                 base_count ​=​ ​len​(alphabet)
+                 alphabet ​=​ ​'123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
     ):
         self.alphabet = alphabet
-        self.base_count = base_count
+        self.base_count = len(self.alphabet)
 
 
 
@@ -20,14 +19,14 @@ class Base58:
         if​ (num ​<​ ​0​):
             return​ ​''
 
-        while​ (num ​>=​ base_count):
-            mod ​=​ num ​%​ base_count
+        while​ (num ​>=​ self.base_count):
+            mod ​=​ num ​%​ self.base_count
             assert​(​type​(mod) ​==​ ​int​ ​and​ mod ​<​ ​58​)
-            encode ​=​ alphabet[mod] ​+​ encode
-            num ​=​ num ​//​ base_count
+            encode ​=​ self.alphabet[mod] ​+​ encode
+            num ​=​ num ​//​ self.base_count
 
             if​ (num):
-                encode ​=​ alphabet[num] ​+​ encode
+                encode ​=​ self.alphabet[num] ​+​ encode
 
         return​ encode
 
@@ -39,7 +38,7 @@ class Base58:
         s ​=​ s[::​-​1​]
 
         for​ char ​in​ s:
-            decoded ​+=​ multi ​*​ alphabet.index(char)
-            multi = multi ​*​ base_count
+            decoded ​+=​ multi ​*​ self.alphabet.index(char)
+            multi = multi ​*​ self.base_count
 
         return​ decoded

@@ -16,4 +16,4 @@ Instructions:
 
   Homework #2: run python3 on all 6 of the tests provided.  The first 3 were provided by the instructor, we created the other 3.
 
-                 python3 test_*.py
+                 python3 test_[1-6].py

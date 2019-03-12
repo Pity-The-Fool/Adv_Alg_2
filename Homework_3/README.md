@@ -25,7 +25,7 @@ Allowable Scripts
 Allowable Addresses - Encodings
 -----------------------------------
 
-Scripts might have one or more addresses specified as parameters. Like in BitCoin, allowable addresses are hashed to 20-bytes encoded/formatted in Base58. For example, we can create such an address starting with the public key PK, then compute the SHA256 hash and then compute the RIPEMD160 hash of the result, producing a 160-bit (20-byte) string/number: Address = RIPEMD160(SHA256(PK)). Finally to encode the this address for the Blockchain we will use Base58 encoding using fixed alphabet of 58 symbols.
+Scripts might have one or more addresses specified as parameters. Like in BitCoin, allowable addresses are hashed to 20-bytes encoded/formatted in Base58. For example, we can create such an address starting with the public key PK, then compute the SHA256 hash and then compute the RIPEMD160 hash of the result, producing a 160-bit (20-byte) string/number: Address = RIPEMD160(SHA256(PK)). Finally to encode this address for the Blockchain we will use Base58 encoding using fixed alphabet of 58 symbols.
 
     alphabet ​=​ ​'123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ'
     base_count ​=​ ​len​(alphabet)

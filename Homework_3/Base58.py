@@ -10,7 +10,8 @@ class Base58():
         self.alphabet = alphabet
         self.base_count ​=​ ​len​(self.alphabet)
 
-
+    # get 20 byte address -- this does not necessarily fit with this class
+    # and should probably be moved to a Blockchain class
     def getHashedAddress(self, pk):
         return hashlib.ripemd160(hashlib.sha256(pk))
 

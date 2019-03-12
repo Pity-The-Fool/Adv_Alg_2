@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import hashlib
 
 class Base58():
 
@@ -10,9 +11,11 @@ class Base58():
         self.base_count = len(self.alphabet)
 
 
+    def getHashedAddress(self, public_key):
+        return haslib.ripemd160(hashlib.sha256(pk))
 
 
-    def​ ​encode​(num):
+    def​ ​encode​(self, num):
         """ Returns num (int) in a base58-encoded string """ encode ​=​ ​''
         assert​(​type​(num) ​==​ ​int​)
 
@@ -31,7 +34,7 @@ class Base58():
         return​ encode
 
 
-    def​ ​decode​(s):
+    def​ ​decode​(self, s):
         """ Decodes the base58-encoded string s into an integer """
         decoded ​=​ ​0
         multi ​=​ ​1

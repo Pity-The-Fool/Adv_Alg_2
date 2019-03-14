@@ -6,22 +6,29 @@ class CompliantNode(Node):
 
     def __init__(self, p_graph, p_malicious, p_txDistribution, numRounds):
 #       // IMPLEMENT THIS
-        pass
+        # TODO: not sure any of this is necessary
+        self.p_graph = p_graph
+        self.p_malicious = p_malicious
+        self.p_txDistribution = p_txDistribution
+        self.numRounds = numRounds
+
+        # why not do this??
+        self.followees = []
+        self.pendingTransactions = set()
 
 
     def setFollowees(self, followees):
-#        // IMPLEMENT THIS
-        pass
+        self.followees = followees
+
 
     def setPendingTransaction(self, pendingTransactions):
-#        // IMPLEMENT THIS
-      pass
+        self.pendingTransactions = pendingTransactions
 
     # Consensus: After final ​round​, ​for​ each node, sendToFollowers() should ​return
  ​   # the Catxs upon which consensus has been reached.
     def sendToFollowers(self):
 #        // IMPLEMENT THIS
-       pass
+        return self.pendingTransactions
 
     def receiveFromFollowees(self,candidates):
 #        // IMPLEMENT THIS

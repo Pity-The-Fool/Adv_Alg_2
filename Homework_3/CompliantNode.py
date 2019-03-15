@@ -14,7 +14,7 @@ class CompliantNode(Node):
 
         # why not do this??
         self.followees = []
-        self.pendingTransactions = set()
+        self.proposals = set()
 
 
     def setFollowees(self, followees):
@@ -22,13 +22,12 @@ class CompliantNode(Node):
 
 
     def setPendingTransaction(self, pendingTransactions):
-        self.pendingTransactions = pendingTransactions
+        self.proposals = pendingTransactions
 
     # Consensus: After final round, for each node, sendToFollowers() should return
     # the Catxs upon which consensus has been reached.
     def sendToFollowers(self):
-#        // IMPLEMENT THIS
-        return self.pendingTransactions
+        return self.proposals
 
     def receiveFromFollowees(self,candidates):
 #        // IMPLEMENT THIS

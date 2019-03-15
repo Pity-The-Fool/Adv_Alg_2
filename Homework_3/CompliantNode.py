@@ -19,9 +19,9 @@ class CompliantNode(Node):
     def setPendingTransaction(self, pendingTransactions):
         self.pendingTransactions = pendingTransactions
 
-    # Consensus: After final round, for each node, sendToFollowers() should return
-    # the Catxs upon which consensus has been reached.
+
     def sendToFollowers(self):
+         # should return the Catxs upon which consensus has been reached
         return self.pendingTransactions
 
 

@@ -19,10 +19,7 @@ def main(args):
  #     // pick which nodes are malicious and which are compliant
     nodes = [None for i in range(numNodes)]
     for i in range(numNodes):
-         if(random.random() < p_malicious):
- #           // When you are ready to try testing with malicious nodes, replace the
- #           // instantiation below with an instantiation of a MaliciousNode
-            nodes[i] = MalDoNothing(p_graph, p_malicious, p_txDistribution, numRounds)
+            nodes[i] = MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds)
          else:
             nodes[i] = CompliantNode(p_graph, p_malicious, p_txDistribution, numRounds)
 

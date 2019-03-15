@@ -1,10 +1,12 @@
 #!/usr/bin/python3
-
+from Catx import scripts, encodeCatx
+from CompliantNode import CompliantNode
+from MaliciousNode import MaliciousNode
 import random
+from Transaction import Transaction
+
 
 def main(args):
-##
-##
 ##      // There are four required command line arguments: p_graph (.1, .2, .3),
 ##      // p_malicious (.15, .30, .45), p_txDistribution (.01, .05, .10),
 ##      // and numRounds (10, 20). You should try to test your CompliantNode
@@ -34,7 +36,6 @@ def main(args):
          validTxIds.add(random.randint(1000,50000))
 
 
-##
 ##      // distribute the 500 Transactions throughout the nodes, to initialize
 ##      // the starting state of Transactions each node has heard. The distribution
 ##      // is random with probability p_txDistribution for each Transaction-Node pair.

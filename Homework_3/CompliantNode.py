@@ -1,20 +1,15 @@
 #!/usr/bin/python3
 
+from Node import Node
 
 # CompliantNode refers to a node that follows the rules (not malicious)
 class CompliantNode(Node):
 
     def __init__(self, p_graph, p_malicious, p_txDistribution, numRounds):
-#       // IMPLEMENT THIS
-        # TODO: not sure any of this is necessary
-        self.p_graph = p_graph
-        self.p_malicious = p_malicious
-        self.p_txDistribution = p_txDistribution
-        self.numRounds = numRounds
+        Node.__init__(self, p_graph, p_malicious, p_txDistribution, numRounds)
 
-        # why not do this??
-        self.followees = []
-        self.proposals = set()
+        self.followees = []               # followees is a list in simulation.py
+        self.pendingTransactions = set()  # pendingTransactions is a set in simulation.py
 
 
     def setFollowees(self, followees):
@@ -22,13 +17,14 @@ class CompliantNode(Node):
 
 
     def setPendingTransaction(self, pendingTransactions):
-        self.proposals = pendingTransactions
+        self.pendingTransactions = pendingTransactions
 
     # Consensus: After final round, for each node, sendToFollowers() should return
     # the Catxs upon which consensus has been reached.
     def sendToFollowers(self):
-        return self.proposals
+        return self.pendingTransactions
 
-    def receiveFromFollowees(self,candidates):
-#        // IMPLEMENT THIS
+
+    def receiveFromFollowees(self, candidates):
+        # TODO: implementation
         pass

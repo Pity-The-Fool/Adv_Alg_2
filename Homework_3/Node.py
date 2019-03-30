@@ -20,8 +20,10 @@ class Node(object):
 
 
     def sendToFollowers(self):
-        #        // IMPLEMENT THIS
-       pass
+       # Malicious node doesn't provide an overridden functionality,
+       # and we're not elaborating on the default behavior here, so
+       # returning an empty set() is to-spec here, though very simple.
+       return set()
 
     def receiveFromFollowees(self,candidates):
         #        // IMPLEMENT THIS

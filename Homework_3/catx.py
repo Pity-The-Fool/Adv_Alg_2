@@ -8,4 +8,5 @@ scripts = { P2PKH: "OP_DUP OP_HASH160 <Public-Key-Hash> OP_EQUALVERIFY OP_CHECKS
             P2HS: "Pay to Hashed Script <Hashed-Address>",
             OTHER: "Another Script" }
 
-def encodeCatx(script, *args, **kwargs): return code
+def encodeCatx(script, *args, **kwargs):
+  return code

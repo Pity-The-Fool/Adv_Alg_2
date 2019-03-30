@@ -1,5 +1,9 @@
 #!/usr/bin/python3
-from Catx import scripts, encodeCatx
+
+import sys
+
+from Candidate import Candidate
+#from Catx import scripts, encodeCatx
 from CompliantNode import CompliantNode
 from MaliciousNode import MaliciousNode
 import random
@@ -12,7 +16,7 @@ def main(args):
 ##      // and numRounds (10, 20). You should try to test your CompliantNode
 ##      // code for all 3x3x3x2 = 54 combinations.
 ##
-    numNodes = 100;
+    numNodes = 100
     p_graph = args[0] # // parameter for random graph: prob. that an edge will exist
     p_malicious = args[1] # // prob. that a node will be set to be malicious
     p_txDistribution = args[2]  #// probability of assigning an initial transaction to each node
@@ -21,6 +25,7 @@ def main(args):
  #     // pick which nodes are malicious and which are compliant
     nodes = [None for i in range(numNodes)]
     for i in range(numNodes):
+         if random.random() < p_malicious:
             nodes[i] = MaliciousNode(p_graph, p_malicious, p_txDistribution, numRounds)
          else:
             nodes[i] = CompliantNode(p_graph, p_malicious, p_txDistribution, numRounds)
@@ -31,7 +36,7 @@ def main(args):
 
 ##      // initialize a set of 500 valid Transactions with random ids
     numTx = 500
-    validTxIds = {}
+    validTxIds = set()
     for i in range(numTx):
          validTxIds.add(random.randint(1000,50000))
 
@@ -40,6 +45,7 @@ def main(args):
 ##      // the starting state of Transactions each node has heard. The distribution
 ##      // is random with probability p_txDistribution for each Transaction-Node pair.
 
+    pendingTransactions = set()
     for i in range(numNodes):
         for txid in validTxIds:
           if (random.random() < p_txDistribution): #// p_txDistribution is .01, .05, or .10.
@@ -66,10 +72,10 @@ def main(args):
                        break #continue; // tx only matters if j follows i
 
                    if (j not in allProposals):
-                       candidates = {}
-                       allProposals.put(j, candidates)
-            candidate = Candidate(tx, i)
-            allProposals.get(j).add(candidate)
+                       candidates = set()
+                       allProposals[j] = candidates
+                   candidate = Candidate(tx, i)
+                   allProposals[j].add(candidate) # I guess brackets here is what we should do?
 
 ##         // Distribute the Proposals to their intended recipients as Candidates
          for i in range(numNodes):
@@ -81,6 +87,15 @@ def main(args):
  #     // print results
     for i in range(numNodes):
          transactions = nodes[i].sendToFollowers()
-         print("Transaction ids that Node " + i + " believes consensus on:")
+         print("Transaction ids that Node " + str(i) + " believes consensus on:")
          for tx in transactions:
-             print(tx.id, "\n\n")
+             print(tx.id)
+
+# All of the arrays below are directly from the homework assignment
+# (except I added |30| to the final array, for fun)
+
+for g in [0.1, 0.2, 0.3]:
+    for m in [0.15, 0.3, 0.45]:
+        for t in [0.01, 0.05, 0.1]:
+            for r in [10, 20, 30]:
+                main([g, m, t, r])

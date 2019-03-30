@@ -17,3 +17,7 @@ Instructions:
   Homework #2: run python3 on all 6 of the tests provided.  The first 3 were provided by the instructor, we created the other 3.
 
                  python3 test_[1-6].py
+
+  Homework #3: run python3 on simulation.py which is the test provided by the professor.
+
+                 python3 simulation.py
